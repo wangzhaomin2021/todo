@@ -2,3 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
+.el-input-number {
+  width: 86px !important;
+}

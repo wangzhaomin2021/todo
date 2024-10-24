@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { reactive, onMounted, ref, computed } from "vue";
+import { reactive, onMounted, ref, computed, watch, } from "vue";
 import Config from './components/Config.vue';
 import TemplateConfig from './components/TemplateConfig.vue';
-import { Leafer, Rect } from 'leafer-ui'
+import { Leafer, Rect, Text } from 'leafer-ui';
+import { config } from './data';
 
-const scale = ref(0.22);
-const width = computed(() => 2970 * scale.value);
+const scale = ref(0.25);
+// const width = computed(() => 2970 * scale.value);
 const widthStyle = computed(() => 2970 * scale.value + 'px');
-const height = computed(() => 2100 * scale.value);
+// const height = computed(() => 2100 * scale.value);
 const heightStyle = computed(() => 2100 * scale.value + 'px');
 
 const drawBoxRef = ref<HTMLDivElement>();
+
+
 
 onMounted(() => {
 
@@ -21,27 +24,63 @@ onMounted(() => {
     // height: height.value,
   })
 
-  const rect = new Rect({
-    x: 100,
-    y: 100,
-    width: 200,
-    height: 200,
-    fill: '#32cd79' // 背景色
-  })
+  function draw() {
+    console.log('draw')
+    leafer.clear()
+    const texts: Text[] = []
+    for(const item of Object.values(config.value)) {
+      console.log('item', item)
+      if (typeof item === 'object' && item) {
+        if (!item.show) continue
 
-  leafer.add(rect)
+        // 收集绘制文本
+        {
+          const { left, top, text, bold, spacing, fontSize, fontFamily } = item.label
+          if (text && [left, top, spacing, fontSize].every(Number.isInteger)) {
+            const textObj = new Text({
+              text: text,
+              x: left * scale.value,
+              y: top * scale.value,
+              fill: '#000',
+              fontWeight: bold ? 'bold' : 'normal',
+              letterSpacing: spacing,
+              fontSize: (fontSize || 48) * scale.value,
+              fontFamily: fontFamily || '宋体',
+            })
+  
+            texts.push(textObj)
+          }
+        }
+
+        {
+          const { left, top, text, bold, spacing, fontSize,fontFamily } = item.value
+          if (text && [left, top, spacing, fontSize].every(Number.isInteger)) {
+            const textObj = new Text({
+              text: text,
+              x: left * scale.value,
+              y: top * scale.value,
+              fill: '#000',
+              letterSpacing: spacing,
+              fontWeight: bold ? 'bold' : 'normal',
+              fontSize: (fontSize || 48) * scale.value,
+              fontFamily: fontFamily || '宋体',
+            })
+  
+            texts.push(textObj)
+          }
+        }
+
+      }
+    }
+
+    leafer.addMany(...texts)
+  }
+
+  watch(config, (newVal) => {
+    console.log(newVal)
+    draw()
+  }, { deep: true })
 })
-
-
-const formInline = reactive({
-  user: "",
-  region: "",
-  date: "",
-});
-
-const onSubmit = () => {
-  console.log("submit!");
-};
 
 
 </script>
@@ -85,13 +124,14 @@ const onSubmit = () => {
 
     .draw-box {
       // box-sizing: border-box;
-      // width: v-bind(widthStyle);
-      // height: v-bind(heightStyle);
-      width: 2970px;
-      height: 2100px;
-      transform: scale(0.22);
-      transform-origin: 0 0;
-      margin: 60px 88px;
+      width: v-bind(widthStyle);
+      height: v-bind(heightStyle);
+      // width: 2970px;
+      // height: 2100px;
+      // transform: scale(0.22);
+      // transform-origin: 0 0;
+      // margin: 60px 88px;
+      margin: 60px auto;
       border: 2px solid #b0b0b0;
       // background-color: #666;
     }
