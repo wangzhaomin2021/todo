@@ -1,10 +1,138 @@
 <script setup lang="ts">
 import { config } from '../data';
 
+const spans = {
+  title: 3,
+  spacing: 4,
+  bold: 4,
+  left: 4,
+  top: 4,
+};
+
 </script>
 
 <template>
-  <el-form :inline="true" :model="config" size="small" label-width="76px">
+  <el-form :inline="true" :model="config" size="small">
+
+     <!-- 类表头 -->
+     <el-row class="header-like">
+      <el-col :span="spans.title"></el-col>
+      <el-col :span="spans.spacing">
+        <el-form-item label="间距"></el-form-item>
+      </el-col>
+      <el-col :span="spans.bold">
+        <el-form-item label="加粗"></el-form-item>
+      </el-col>
+      <el-col :span="spans.left">
+        <el-form-item label="左边"></el-form-item>
+      </el-col>
+      <el-col :span="spans.top">
+        <el-form-item label="顶边"></el-form-item>
+      </el-col>
+    </el-row>
+
+    <!-- 代码 -->
+    <el-row>
+      <el-col :span="spans.title"><span class="title">抬头:</span></el-col>
+
+      <el-col :span="spans.spacing">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.creditCode.value.spacing" controls-position="right"
+            :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.bold">
+        <el-form-item label="">
+          <el-switch v-model="config.creditCode.value.bold"></el-switch>
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.left">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.creditCode.value.left" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.top">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.creditCode.value.top" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+
+    <!-- 名称 -->
+    <el-row>
+      <el-col :span="spans.title"><span class="title">名称:</span></el-col>
+      <el-col :span="spans.spacing">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.name.value.spacing" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.bold">
+        <el-form-item label="">
+          <el-switch v-model="config.name.value.bold"></el-switch>
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.left">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.name.value.left" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.top">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.name.value.top" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+
+    <!-- 类型 -->
+    <el-row>
+      <el-col :span="spans.title"><span class="title">类型:</span></el-col>
+      <el-col :span="spans.spacing">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.typeOfEnterprise.value.spacing" controls-position="right" :min="0"  />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.bold">
+        <el-form-item label="">
+          <el-switch v-model="config.typeOfEnterprise.value.bold"></el-switch>
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.left">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.typeOfEnterprise.value.left" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.top">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.typeOfEnterprise.value.top" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+
+    <!-- 法人 -->
+    <el-row>
+      <el-col :span="spans.title"><span class="title">法人:</span></el-col>
+      <el-col :span="spans.spacing">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.legalRepresentative.value.spacing" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.bold">
+        <el-form-item label="">
+          <el-switch v-model="config.legalRepresentative.value.bold"></el-switch>
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.left">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.legalRepresentative.value.left" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="spans.top">
+        <el-form-item label="">
+          <el-input-number :precision="0" v-model="config.legalRepresentative.value.top" controls-position="right" :min="0" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+
     <!-- 抬头 -->
     <el-row>
       <el-col :span="4">
@@ -342,7 +470,15 @@ import { config } from '../data';
   </el-form>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.header-like {
+  :deep(.el-form-item__label) {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+  }
+}
+
 .title {
   font-size: 12px;
   font-weight: bold;

@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Config: typeof import('./src/components/Config.vue')['default']
+    copy: typeof import('./src/components/TemplateConfig copy.vue')['default']
+    CoreConfig: typeof import('./src/components/CoreConfig.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -19,8 +21,6 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
     TemplateConfig: typeof import('./src/components/TemplateConfig.vue')['default']
   }
 }

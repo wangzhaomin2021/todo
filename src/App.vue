@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { reactive, onMounted, ref, computed, watch, } from "vue";
+import { onMounted, ref, computed, watch, } from "vue";
 import Config from './components/Config.vue';
 import TemplateConfig from './components/TemplateConfig.vue';
-import { Leafer, Rect, Text } from 'leafer-ui';
+import { Leafer, Text } from 'leafer-ui';
 import { config } from './data';
 
 const scale = ref(0.25);
@@ -43,7 +43,7 @@ onMounted(() => {
               y: top * scale.value,
               fill: '#000',
               fontWeight: bold ? 'bold' : 'normal',
-              letterSpacing: spacing,
+              letterSpacing: spacing * scale.value,
               fontSize: (fontSize || 48) * scale.value,
               fontFamily: fontFamily || '宋体',
             })
@@ -60,7 +60,7 @@ onMounted(() => {
               x: left * scale.value,
               y: top * scale.value,
               fill: '#000',
-              letterSpacing: spacing,
+              letterSpacing: spacing * scale.value,
               fontWeight: bold ? 'bold' : 'normal',
               fontSize: (fontSize || 48) * scale.value,
               fontFamily: fontFamily || '宋体',
@@ -92,10 +92,11 @@ onMounted(() => {
         <el-tab-pane label="Config">
           <Config />
         </el-tab-pane>
-        <el-tab-pane label="TemplateConfig">
+        <el-tab-pane label="模板配置">
           <TemplateConfig />
         </el-tab-pane>
       </el-tabs>
+      <!-- <CoreConfig /> -->
     </div>
     <div class="panel">
       <div class="draw-box" ref="drawBoxRef"></div>
@@ -118,7 +119,7 @@ onMounted(() => {
   }
 
   .panel {
-    width: 820px;
+    width: 780px;
     height: 100vh;
     flex-shrink: 0;
 
@@ -131,7 +132,7 @@ onMounted(() => {
       // transform: scale(0.22);
       // transform-origin: 0 0;
       // margin: 60px 88px;
-      margin: 60px auto;
+      margin: 20px auto;
       border: 2px solid #b0b0b0;
       // background-color: #666;
     }
